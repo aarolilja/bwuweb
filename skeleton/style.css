@@ -40,7 +40,9 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
 		display: block; }
 	body {
-		line-height: 1; }
+		line-height: 1;
+		background-color: #FFF;
+		}
 	ol, ul {
 		list-style: none; }
 	blockquote, q {
@@ -75,20 +77,33 @@ body {
 	-webkit-text-size-adjust: 100%;
 }
 
+h3 {
+	font-family: 'Francois One', Georgia, sans-serif;
+	}
+
+#content {
+	padding-top: 30px;
+}	
+	
 /* @end */
 
 
 
 /* @group Structural Customization */
-
+#headernav {
+	border-top: 4px solid #0D92FF;
+	width: 100%;
+	margin-top: 10px;
+}
 
 #header {
-	clear: both;
-	margin-top: 16px;
+	/*clear: both;*/
+	margin-top: 10px;
+	width: 30%;
+	float: left;
 }
 
 #header .inner {
-	padding-top: 15px;
 	padding-bottom: 20px;
 }
 
@@ -153,18 +168,18 @@ a.themeauthor {
 }
 
 #header #site-title a:hover {
-	color: #3253ad;
+	color: #FF911C;
 }	
 
 /* Header Tagline */
 
 #header span.site-desc {
 	margin: 0;
-	padding: 0;
-	font-size: 24px;
+	padding-left: 4px;
+	font-size: 20px;
 	line-height: 28px;
 	color: #7d7d7d;
-	letter-spacing: -1px;
+	/*letter-spacing: -1px;*/
 }
 
 /* Image Header */
@@ -179,41 +194,39 @@ a.themeauthor {
 	display: none;
 }
 
+#header_image {
+		margin-top: -30px;
+	}
+	
+#header_image a:hover {
+	border-bottom: 2px solid #0D92FF;
+}	
+
 /* @end */
 
 /* @group Navigation Bar */
+#navigation {
+	width: 55%;
+	float: right;
+}
 
 #navigation ul {
 	width: 100%;
- 	background: -moz-linear-gradient(270deg, #FCFCFC, #ECECEC) repeat scroll 0 0 transparent;
- 	background: -webkit-linear-gradient(270deg, #FCFCFC, #ECECEC) repeat scroll 0 0 transparent;
-	-pie-background: linear-gradient(#FCFCFC, #ECECEC);
-    border-color: #EAEAEA #F5F5F5 #F5F5F5 #F5F5F5;
-    -moz-border-radius: 5px 5px 5px 5px;
-    -webkit-border-radius: 5px 5px 5px 5px;
-     border-radius: 5px 5px 5px 5px;
-    border-style: solid;
-    border-width: 1px;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-    -pie-box-shadow: 0 1px 1px #ccc;
     position: relative;
     behavior: url("./wp-content/themes/skeleton/PIE.php");
 }
 	
 
 #navigation ul li {
- 	background: -moz-linear-gradient(270deg, #FCFCFC, #ECECEC) repeat scroll 0 0 transparent;
- 	background: -webkit-linear-gradient(270deg, #FCFCFC, #ECECEC) repeat scroll 0 0 transparent;
-	-pie-background: linear-gradient(#FCFCFC, #ECECEC);
 	background-image: none;
-	border-right: 1px solid #e3e3e3;
     position: relative;
     behavior: url("./wp-content/themes/skeleton/PIE.php");
 }
 
 #navigation ul li a {
 	background-image: none;
-	padding: 15px 25px;
+	padding-left: 25px;
+	color: #000;
 	text-decoration: none;
 	display: block;
 	font-weight: bold;
@@ -224,28 +237,21 @@ a.themeauthor {
 
 #navigation ul li:hover a,
 #navigation ul li a:hover {
-	color: #545454;
-	background: #f1f1f1;
- 	background: -moz-linear-gradient(270deg, #FFFFFF, #F1F1F1) repeat scroll 0 0 transparent;
- 	background: -webkit-linear-gradient(270deg, #FFFFFF, #F1F1F1) repeat scroll 0 0 transparent;
-	-pie-background: linear-gradient(#FFFFFF, #F1F1F1);
-	border-bottom: 1px solid #F1F1F1;
+	color: #FF911C;
     position: relative;
     behavior: url("./wp-content/themes/skeleton/PIE.php");
-}
-
-#navigation ul li:hover li a {
-	color: #595959;
-	font-weight: normal;
 }
 
 /* Navbar Active Links */
 
 #navigation ul li.active a {
-	color: #333;
-	background: #fff;
+	color: #FF911C;
 	text-shadow: 1px 1px 0px #fff;
 	border-bottom: 1px solid #fff;
+}
+
+#navigation ul li a:active {
+	color: #FFD51C;
 }
 
 
@@ -297,6 +303,7 @@ a.themeauthor {
 
 	h1, h2, h3, h4, h5 { 
 		letter-spacing: -1px;
+		font-family: 'Francois One', sans-serif;
 	}
 	
 	h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
@@ -398,7 +405,7 @@ a.themeauthor {
 
 .wp-caption {
 	border: 1px solid #fff;
-	background-color: #f6f6f6;
+	background-color: #fff
 	color: #666;
 	text-shadow: 1px 1px 0px #fff;
 	-webkit-box-shadow:1px 1px 6px #ddd;
@@ -585,7 +592,6 @@ li.page_item,li.menu-item {
 
 li.page_item a,li.menu-item a {
 	display: block;
-	border-bottom: 1px solid #eee;
 	padding: 8px 0px 8px 24px;
 	line-height: 120%;
 	font-weight: bold;
@@ -618,6 +624,12 @@ li.menu-item a:hover {
 	color: #333;
 }
 
+li.page_item a:active,
+li.menu-item a:active {
+	text-decoration: none;
+	color: #FF911C;
+}
+
 /* @end */
 
 /* @group WP Blog Styles */
@@ -636,7 +648,7 @@ li.menu-item a:hover {
 .post {
 	margin-bottom: 20px;
 	padding-bottom: 10px;
-	border-bottom: 1px solid #d6d6d6;
+	/*border-bottom: 1px solid #d6d6d6;*/
 }
 .post.single {
 	border-bottom: none;
@@ -1887,7 +1899,8 @@ body.logged-in li.guest {
 
 img.scale-with-grid { 
 	max-width: 100%;
-	height: auto; }
+	height: auto;
+	}
 
 			
 /* #Forms (see formalize.css)
@@ -1909,15 +1922,109 @@ img.scale-with-grid {
 	.add-top { margin-top: 20px !important; }
 
 
-.resize {
+/*.resize {
     background: url(images/resize.png) repeat scroll 0 0 transparent;
     bottom: 0;
     height: 80px;
     position: fixed;
     right: 0;
     width: 80px;
-}
+}*/
 .bypostauthor,.gallery-caption {}
+
+/*-------CSS FOR STUDENTOVERSIKT-------*/
+
+#grid-wrapper {
+		
+}
+
+.klassetrinn {
+	float: left;
+	width: 250px;
+}
+
+.klassetrinn h3 {
+	font-family: 'Roboto Condensed', 'Francois One', sans-serif;
+	font-size: 1.9em;
+	padding-bottom: 10px;
+}
+
+#student-grid, #student-grid2, #student-grid3 {
+	float: left;
+	margin: 5px;
+	text-align: center;
+}
+
+.klassetrinn a, #nyhetsgrid a {
+	color: #0D92FF;
+	text-decoration: none;
+}
+
+.klassetrinn a:hover, #nyhetsgrid a:hover  {
+	font-weight: bold;
+}
+
+#nyhetsgrid {
+	float: left;
+	margin: 15px;
+	width: 250px;
+}
+
+#nyhetsgrid p {
+	margin: 0 0 10px;
+}
+
+#readmore  a {
+	color: #000;
+}
+
+#readmore a:hover {
+	font-weight: bold;
+	color: #000;
+}
+
+#bilde1 {	
+	background-image:url('images/prosjektbilde1.png');
+	height: 343px;
+	width: 700px;
+}
+
+#bilde2 {	
+	background-image:url('images/prosjektbilde1.png');
+	height: 343px;
+	width: 700px;
+}
+
+#bildebesk2 {
+	margin-top: 70px;
+}
+
+.prosjekt-img, .prosjekt-imgdesc {
+	float: left;
+}
+
+.prosjekt-imgdesc p {
+	font-family: arial;
+    font-size: 16px;
+    font-weight: normal;
+	line-height: 120%;
+	margin: 20px 0;
+} 
+
+.prosjekt-imgdesc {
+	width: 200px;
+	border-top: 2px solid black;
+	border-bottom: 2px solid black;
+	margin: 0;
+}
+
+.prosjekt-img {
+	margin: 0 20px 40px 0
+}	
+
+#prosjekt-tittel {
+	width: 800px;
+}
 
 /* @end */
 

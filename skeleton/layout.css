@@ -14,14 +14,14 @@
 
 #navigation {
 	margin-bottom: 20px;
-	clear: both;
 }
 
 #navigation ul,
 #navigation ul li {
-	float: left;
+	float: right;
 	margin: 0;
 	padding: 0;
+	font-size: 18px;
 }
 
 /* @end */

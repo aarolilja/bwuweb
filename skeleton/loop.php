@@ -133,6 +133,8 @@
 
 			<div class="entry-meta">
 				<?php skeleton_posted_on(); ?>
+				<?php the_meta(); ?>
+				<?php the_excerpt(); ?>
 			</div><!-- .entry-meta -->
 
 	<?php if ( is_archive() || is_search() ) : // Only display excerpts for archives and search. ?>

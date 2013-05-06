@@ -47,7 +47,7 @@
 
 <div id="respond">
 
-<h2><?php comment_form_title( _e('Leave a reply','smpl')); ?></h2>
+<h2><?php comment_form_title( _e('Skriv en kommentar','smpl')); ?></h2>
 
 <div class="cancel-comment-reply">
 	<small><?php cancel_comment_reply_link(); ?></small>

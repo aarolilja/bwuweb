@@ -234,6 +234,9 @@ function skeleton_setup() {
 
 	// This theme uses post thumbnails
 	add_theme_support( 'post-thumbnails' );
+	
+	// RAW: Endrer strl på featured images
+	set_post_thumbnail_size( 300, 300 ); // default Post Thumbnail dimensions   
 
 	// Add default posts and comments RSS feed links to head
 	add_theme_support( 'automatic-feed-links' );
@@ -258,11 +261,11 @@ function skeleton_setup() {
 			define( 'NO_HEADER_TEXT', true );
 			
 		if ( ! defined( 'HEADER_IMAGE_WIDTH') )
-			define( 'HEADER_IMAGE_WIDTH', apply_filters( 'skeleton_header_image_width',960));
+			define( 'HEADER_IMAGE_WIDTH', apply_filters( 'skeleton_header_image_width',137));
 			
 			
 		if ( ! defined( 'HEADER_IMAGE_HEIGHT') )
-			define( 'HEADER_IMAGE_HEIGHT', apply_filters( 'skeleton_header_image_height',185 ));
+			define( 'HEADER_IMAGE_HEIGHT', apply_filters( 'skeleton_header_image_height',124 ));
 
 		// Add a way for the custom header to be styled in the admin panel that controls
 		// custom headers. See skeleton_admin_header_style(), below.
@@ -377,7 +380,7 @@ add_filter( 'excerpt_length', 'skeleton_excerpt_length' );
 if ( !function_exists( 'skeleton_continue_reading_link' ) ) {
 
 function skeleton_continue_reading_link() {
-	return ' <a href="'. get_permalink() . '">' . __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'skeleton' ) . '</a>';
+	return '<div id="readmore"> <a href="'. get_permalink() . '">' . __( 'Les mer <span class="meta-nav">&rarr;</span>', 'skeleton' ) . '</a></div>';
 }
 }
 /**
@@ -697,7 +700,12 @@ function st_logo() {
 		$class="text"; 		
 	}
 	// echo of_get_option('header_logo')
-	$st_logo  = '<'.$heading_tag.' id="site-title" class="'.$class.'"><a href="'.esc_url( home_url( '/' ) ).'" title="'.esc_attr( get_bloginfo('name','display')).'">'.get_bloginfo('name').'</a></'.$heading_tag.'>'. "\n";
+	/*$st_logo  = '<'.$heading_tag.' id="site-title" class="'.$class.'"><a href="'.esc_url( home_url( '/' ) ).'" title="'.esc_attr( get_bloginfo('name','display')).'">'.get_bloginfo('name').'</a></'.$heading_tag.'>'. "\n";
+	$st_logo .= '<span class="site-desc '.$class.'">'.get_bloginfo('description').'</span>'. "\n";
+	echo apply_filters ( 'child_logo' , $st_logo);*/
+	
+	// echo of_get_option('header_logo')
+	$st_logo  = '<'.$heading_tag.' id="site-title" class="'.$class.'"><a href="'.esc_url( home_url( '/' ) ).'" title="'.esc_attr( get_bloginfo('name','display')).'"></a></'.$heading_tag.'>'. "\n";
 	$st_logo .= '<span class="site-desc '.$class.'">'.get_bloginfo('description').'</span>'. "\n";
 	echo apply_filters ( 'child_logo' , $st_logo);
 }
@@ -967,3 +975,83 @@ function st_custom_sanitize_textarea($input) {
         $output = wp_kses( $input, $of_custom_allowedtags);
     return $output;
 }
+
+//CUSTOM POST TINGETANG----------------------------------------------------
+
+if ( ! function_exists('portfolio_post_type') ) {
+
+// Register Custom Post Type
+function portfolio_post_type() {
+	$labels = array(
+		'name'                => _x( 'Prosjekter', 'Post Type General Name', 'text_domain' ),
+		'singular_name'       => _x( 'Prosjekt', 'Post Type Singular Name', 'text_domain' ),
+		'menu_name'           => __( 'Prosjekter', 'text_domain' ),
+		'parent_item_colon'   => __( 'Parent Prosjekt:', 'text_domain' ),
+		'all_items'           => __( 'Alle Prosjekter', 'text_domain' ),
+		'view_item'           => __( 'Vis prosjekter', 'text_domain' ),
+		'add_new_item'        => __( 'Legg til nytt prosjekt', 'text_domain' ),
+		'add_new'             => __( 'Nytt prosjekt', 'text_domain' ),
+		'edit_item'           => __( 'Endre prosjekt', 'text_domain' ),
+		'update_item'         => __( 'Oppdater prosjekt', 'text_domain' ),
+		'search_items'        => __( 'Søk prosjekter', 'text_domain' ),
+		'not_found'           => __( 'Ingen prosjekter funnet', 'text_domain' ),
+		'not_found_in_trash'  => __( 'Ingen prosjekter funnet i papirkurv', 'text_domain' ),
+	);
+
+	$args = array(
+		'label'               => __( 'portfolio', 'text_domain' ),
+		'description'         => __( 'Portefølje for studentprosjekter', 'text_domain' ),
+		'labels'              => $labels,
+		'supports'            => array( 'title', 'editor', 'excerpt', 'author', 'thumbnail', 'comments', 'custom-fields', 'page-attributes', ),
+		'taxonomies'          => array( 'category', 'post_tag' ),
+		'hierarchical'        => true,
+		'public'              => true,
+		'show_ui'             => true,
+		'show_in_menu'        => true,
+		'show_in_nav_menus'   => true,
+		'show_in_admin_bar'   => true,
+		'menu_position'       => 5,
+		'menu_icon'           => '',
+		'can_export'          => true,
+		'exclude_from_search' => false,
+		'publicly_queryable'  => true,
+		'has_archive'		  => true,
+		'capability_type'     => 'page',
+	);
+
+	register_post_type( 'portfolio', $args );
+}
+
+// Hook into the 'init' action
+add_action( 'init', 'portfolio_post_type', 0 );
+
+add_filter( 'template_include', 'include_template_function', 1 );
+
+function include_template_function( $template_path ) {
+    if ( get_post_type() == 'portfolio' ) {
+        if ( is_single() ) {
+            // checks if the file exists in the theme first,
+            // otherwise serve the file from the plugin
+            if ( $theme_file = locate_template( array ( 'single-portfolio.php' ) ) ) {
+                $template_path = $theme_file;
+            } else {
+                $template_path = plugin_dir_path( __FILE__ ) . '/single-portfolio.php';
+            }
+        }
+    }
+    return $template_path;
+}
+}
+
+//Link under excerpt for posts - lenker til post under beskrivelse
+
+/*function excerpt_read_more_link($output) {
+ global $post;
+ return $output . '<a href="'. get_permalink($post->ID) . '"> Les mer...</a>';
+}
+add_filter('the_excerpt', 'excerpt_read_more_link');*/
+
+function new_excerpt_more( $more ) {
+	return ' <a class="read-more" href="'. get_permalink( get_the_ID() ) . '">Les mer</a>';
+}
+add_filter( 'excerpt_more', 'new_excerpt_more' );

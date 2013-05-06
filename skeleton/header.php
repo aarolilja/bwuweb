@@ -89,6 +89,8 @@ html.ie #author-info {behavior: url("<?php echo get_stylesheet_directory_uri();?
 
 <link rel="pingback" href="<?php echo get_option('siteurl') .'/xmlrpc.php';?>" />
 <link rel="stylesheet" id="custom" href="<?php echo home_url() .'/?get_styles=css';?>" type="text/css" media="all" />
+<link href='http://fonts.googleapis.com/css?family=Francois+One' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Roboto+Condensed' rel='stylesheet' type='text/css'>
 
 <?php
 	/* 
@@ -103,18 +105,23 @@ html.ie #author-info {behavior: url("<?php echo get_stylesheet_directory_uri();?
 </head>
 <body <?php body_class(); ?>>
 	<div id="wrap" class="container">
-	<div class="resize"></div>
+	  <div class="resize"></div>
 	<?php
-	st_above_header();
+	st_above_header(); ?>
+		<div id="headernav">
+	<?php
 	st_header();
-	st_below_header();
+	st_navbar();
 	?>
-	<?php st_navbar(); ?>
+		</div><!--#headernav-->
+	<?php st_below_header();
+	?>
+	
 	<?php
 	// Check if this is a post or page, if it has a thumbnail, and if it exceeds defined HEADER_IMAGE_WIDTH
-	if ( is_singular() && current_theme_supports( 'post-thumbnails' ) && has_post_thumbnail( $post->ID ) 
+	/*if ( is_singular() && current_theme_supports( 'post-thumbnails' ) && has_post_thumbnail( $post->ID ) 
 	&& ( /* $src, $width, $height */
-	$image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'post-thumbnail' ))
+	/*$image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'post-thumbnail' ))
 	&&
 	$image[1] >= HEADER_IMAGE_WIDTH ) :
 	// Houston, we have a new header image!
@@ -123,7 +130,13 @@ html.ie #author-info {behavior: url("<?php echo get_stylesheet_directory_uri();?
 				'alt'	=> trim(strip_tags( $attachment->post_excerpt )),
 				'title'	=> trim(strip_tags( $attachment->post_title ))
 				);
-	echo '<div id="header_image" class="row sixteen columns">'.get_the_post_thumbnail( $post->ID, array("HEADER_IMAGE_WIDTH","HEADER_IMAGE_HEIGHT"), $image_attr ).'</div>';
+	//echo '<div id="header_image" class="row sixteen columns">'.get_the_post_thumbnail( $post->ID, array("HEADER_IMAGE_WIDTH","HEADER_IMAGE_HEIGHT"), $image_attr ).'</div>';
 	elseif ( get_header_image() ) : ?>
 		<div id="header_image" class="row sixteen columns"><img class="scale-with-grid round" src="<?php header_image(); ?>" alt="" /></div>
-	<?php endif; ?>	
+	<?php endif; ?>	*/
+	
+	if ( get_header_image() ) : ?>
+		<div id="header_image" class="row sixteen columns"><a href="<?php bloginfo('url'); ?>" title="forside"><img class="scale-with-grid round" src="<?php header_image(); ?>" alt="" /></a></div>
+	<?php elseif ( get_header_image() ) : ?>
+		<div id="header_image" class="row sixteen columns"><a href="<?php bloginfo('url'); ?>" title="forside"><img class="scale-with-grid round" src="<?php header_image(); ?>" alt="" /></a></div>
+	<?php endif; ?>
